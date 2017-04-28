@@ -12,7 +12,7 @@ package rpi
 	context ctxt;   \
 	ctxt.pin = PIN;  \
 	ctxt.ret = PIN;  \
-	callback_func(goCallback, &ctxt); \
+	callback_func(goWiringPiCallback, &ctxt); \
 }
 
 typedef struct context context;
@@ -35,7 +35,7 @@ static int my_digitalRead(int p) {
 
 static void(*callback_func)(void (*f)(void*), void*);
 
-extern void goCallback(void *);
+extern void goWiringPiCallback(void *);
 
 GEN_INTERRUPTER(0)
 GEN_INTERRUPTER(1)
@@ -287,8 +287,8 @@ func init() {
 
 var interrupt_chans = [64]chan int{}
 
-//export goCallback
-func goCallback(arg unsafe.Pointer) {
+//export goWiringPiCallback
+func goWiringPiCallback(arg unsafe.Pointer) {
 	ctxt := (*C.context)(arg)
 	interrupt_chans[int(ctxt.pin)] <- int(ctxt.ret)
 }
