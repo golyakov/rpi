@@ -1,7 +1,7 @@
 package rpi
 
 /*
-#cgo LDFLAGS: -lwiringPi
+#cgo LDFLAGS: -lwiringPi -lwiringPiDev -lpthread -lm -lcrypt -lrt
 
 #include <wiringPi.h>
 #include <stdio.h>
